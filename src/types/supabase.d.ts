@@ -1,4 +1,3 @@
-
 export type Json =
   | string
   | number
@@ -24,6 +23,7 @@ export interface Database {
           end_date: string
           creator_id: string
           created_at: string
+          blockchain_id?: string
         }
         Insert: {
           id?: string
@@ -38,6 +38,7 @@ export interface Database {
           end_date: string
           creator_id: string
           created_at?: string
+          blockchain_id?: string
         }
         Update: {
           id?: string
@@ -52,6 +53,7 @@ export interface Database {
           end_date?: string
           creator_id?: string
           created_at?: string
+          blockchain_id?: string
         }
       }
       milestones: {
