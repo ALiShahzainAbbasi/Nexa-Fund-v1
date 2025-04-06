@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import CampaignCard from './CampaignCard';
 import CategoryFilter from './CategoryFilter';
@@ -16,7 +17,7 @@ const featuredCampaignsData: Campaign[] = [
     daysLeft: 15,
     backers: 358,
     creator: '0xA1111E5B1C9D168f815C7856996B9DFA9327b773',
-    story: 'Our eco-friendly water purifier uses a revolutionary filtration system that eliminates contaminants while preserving essential minerals. With no chemicals and minimal maintenance required, it's perfect for homes and communities worldwide.'
+    story: 'Our eco-friendly water purifier uses a revolutionary filtration system that eliminates contaminants while preserving essential minerals. With no chemicals and minimal maintenance required, it\'s perfect for homes and communities worldwide.'
   },
   {
     id: '2',

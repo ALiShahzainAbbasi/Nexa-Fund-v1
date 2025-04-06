@@ -1,3 +1,4 @@
+
 import CampaignCard from './CampaignCard';
 import { Campaign } from "@/data/campaigns";
 
@@ -14,7 +15,7 @@ const trendingCampaignsData: Campaign[] = [
     daysLeft: 7,
     backers: 476,
     creator: '0xA1111E5B1C9D168f815C7856996B9DFA9327b773',
-    story: 'Our sustainable fashion line transforms recycled and eco-friendly materials into stylish, high-quality clothing that's good for both people and the planet. With transparent manufacturing and fair labor practices, we're redefining ethical fashion.'
+    story: 'Our sustainable fashion line transforms recycled and eco-friendly materials into stylish, high-quality clothing that\'s good for both people and the planet. With transparent manufacturing and fair labor practices, we\'re redefining ethical fashion.'
   },
   {
     id: '8',
