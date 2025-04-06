@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useWallet } from "@/contexts/WalletContext";
 import { Button } from "@/components/ui/button";
@@ -132,7 +133,7 @@ const WalletConnect = () => {
           ) : !isMetaMaskDetected ? (
             <>
               <Wallet className="h-4 w-4" />
-              Generate MetaMask
+              Connect Wallet
             </>
           ) : (
             <>
