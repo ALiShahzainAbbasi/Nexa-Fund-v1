@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import WalletConnect from './WalletConnect';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,6 +45,7 @@ const Navbar = () => {
         </nav>
 
         <div className="hidden md:flex items-center space-x-4">
+          <WalletConnect />
           <Link to="/start-campaign">
             <Button className="text-base font-medium bg-green-500 hover:bg-green-600">
               Start Campaign
@@ -83,6 +85,7 @@ const Navbar = () => {
               Contact
             </Link>
             <div className="flex flex-col space-y-2 pt-2">
+              <WalletConnect />
               <Link to="/start-campaign" className="w-full">
                 <Button className="text-base font-medium justify-center w-full bg-green-500 hover:bg-green-600">
                   Start Campaign
