@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -16,9 +17,11 @@ const HeroSection = () => {
               Where to grow your business from zero investment
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="text-base md:text-lg font-medium bg-green-500 hover:bg-green-600 w-40">
-                Register
-              </Button>
+              <Link to="/register">
+                <Button size="lg" className="text-base md:text-lg font-medium bg-green-500 hover:bg-green-600 w-40">
+                  Register
+                </Button>
+              </Link>
             </div>
             <div className="flex space-x-1 pt-4">
               <span className="w-2 h-2 rounded-full bg-green-500"></span>
