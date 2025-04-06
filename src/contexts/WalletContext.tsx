@@ -17,7 +17,13 @@ interface WalletContextType {
   isLoading: boolean;
 }
 
-const WalletContext = createContext<WalletContextType | undefined>(undefined);
+// Create the context with a meaningful default value
+const WalletContext = createContext<WalletContextType>({
+  wallet: initialWalletState,
+  connect: async () => {},
+  disconnect: () => {},
+  isLoading: false
+});
 
 export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [wallet, setWallet] = useState<WalletState>(initialWalletState);
@@ -153,8 +159,15 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     });
   };
 
+  const contextValue = {
+    wallet,
+    connect: handleConnect,
+    disconnect,
+    isLoading
+  };
+
   return (
-    <WalletContext.Provider value={{ wallet, connect: handleConnect, disconnect, isLoading }}>
+    <WalletContext.Provider value={contextValue}>
       {children}
     </WalletContext.Provider>
   );
