@@ -3,6 +3,18 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Campaign } from "@/data/campaigns";
 
+export interface CampaignProps {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  imageSrc: string;
+  raisedAmount: number;
+  goalAmount: number;
+  daysLeft: number;
+  backers: number;
+}
+
 interface CampaignCardProps {
   campaign: Campaign;
 }

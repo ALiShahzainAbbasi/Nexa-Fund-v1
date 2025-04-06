@@ -1,16 +1,17 @@
 
-import CampaignCard, { CampaignProps } from './CampaignCard';
+import CampaignCard from './CampaignCard';
+import { Campaign } from "@/data/campaigns";
 
 // Sample data for trending campaigns
-const trendingCampaignsData: CampaignProps[] = [
+const trendingCampaignsData: Campaign[] = [
   {
     id: '7',
     title: 'Sustainable Fashion Line',
     category: 'Creative',
     description: 'Ethically made clothing using recycled materials and sustainable practices.',
-    imageSrc: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-    raisedAmount: 38200,
-    goalAmount: 45000,
+    image: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    raised: 38200,
+    goal: 45000,
     daysLeft: 7,
     backers: 476
   },
@@ -19,9 +20,9 @@ const trendingCampaignsData: CampaignProps[] = [
     title: 'AI-Powered Recycling Robot',
     category: 'Technology',
     description: 'A smart recycling assistant that automatically sorts waste using computer vision technology.',
-    imageSrc: 'https://images.unsplash.com/photo-1611281385571-d65f3df03008?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-    raisedAmount: 156000,
-    goalAmount: 200000,
+    image: 'https://images.unsplash.com/photo-1611281385571-d65f3df03008?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    raised: 156000,
+    goal: 200000,
     daysLeft: 23,
     backers: 1892
   },
@@ -30,9 +31,9 @@ const trendingCampaignsData: CampaignProps[] = [
     title: 'Mobile Library for Rural Areas',
     category: 'Education',
     description: 'Bringing books and educational resources to underserved communities in rural regions.',
-    imageSrc: 'https://images.unsplash.com/photo-1533327325824-76bc4e62d560?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
-    raisedAmount: 12800,
-    goalAmount: 15000,
+    image: 'https://images.unsplash.com/photo-1533327325824-76bc4e62d560?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
+    raised: 12800,
+    goal: 15000,
     daysLeft: 5,
     backers: 234
   }
@@ -53,7 +54,7 @@ const TrendingCampaigns = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {trendingCampaignsData.map((campaign) => (
-            <CampaignCard key={campaign.id} {...campaign} />
+            <CampaignCard key={campaign.id} campaign={campaign} />
           ))}
         </div>
       </div>

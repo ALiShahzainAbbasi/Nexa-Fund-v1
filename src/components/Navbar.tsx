@@ -23,8 +23,17 @@ const Navbar = () => {
           <Link to="/" className="text-base font-medium text-gray-700 hover:text-green-600">
             Home
           </Link>
+          <Link to="/features" className="text-base font-medium text-gray-700 hover:text-green-600">
+            Features
+          </Link>
           <Link to="/browse" className="text-base font-medium text-gray-700 hover:text-green-600">
             Browse
+          </Link>
+          <Link to="/blog" className="text-base font-medium text-gray-700 hover:text-green-600">
+            Blog
+          </Link>
+          <Link to="/pricing" className="text-base font-medium text-gray-700 hover:text-green-600">
+            Pricing
           </Link>
           <Link to="/about" className="text-base font-medium text-gray-700 hover:text-green-600">
             About
@@ -55,8 +64,17 @@ const Navbar = () => {
             <Link to="/" className="text-base font-medium text-gray-700 hover:text-green-600">
               Home
             </Link>
+            <Link to="/features" className="text-base font-medium text-gray-700 hover:text-green-600">
+              Features
+            </Link>
             <Link to="/browse" className="text-base font-medium text-gray-700 hover:text-green-600">
               Browse
+            </Link>
+            <Link to="/blog" className="text-base font-medium text-gray-700 hover:text-green-600">
+              Blog
+            </Link>
+            <Link to="/pricing" className="text-base font-medium text-gray-700 hover:text-green-600">
+              Pricing
             </Link>
             <Link to="/about" className="text-base font-medium text-gray-700 hover:text-green-600">
               About
