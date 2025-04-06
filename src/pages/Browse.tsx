@@ -1,23 +1,46 @@
 
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CampaignCard from "@/components/CampaignCard";
-import { campaigns, categories } from "@/data/campaigns";
+import { categories } from "@/data/campaigns";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { fetchCampaigns } from "@/services/campaignService";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Browse = () => {
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const { data: campaigns, isLoading, error } = useQuery({
+    queryKey: ['campaigns'],
+    queryFn: fetchCampaigns
+  });
+
   // Filter campaigns based on selected category and search query
-  const filteredCampaigns = campaigns.filter((campaign) => {
+  const filteredCampaigns = campaigns?.filter((campaign) => {
     const matchesCategory = selectedCategory === "All Categories" || campaign.category === selectedCategory;
     const matchesSearch = campaign.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                          campaign.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
+
+  const renderSkeletons = () => {
+    return Array(6).fill(0).map((_, i) => (
+      <div key={i} className="space-y-3">
+        <Skeleton className="w-full h-48 rounded-lg" />
+        <Skeleton className="w-2/3 h-4 rounded" />
+        <Skeleton className="w-full h-3 rounded" />
+        <Skeleton className="w-full h-2 rounded" />
+        <div className="flex justify-between">
+          <Skeleton className="w-1/4 h-3 rounded" />
+          <Skeleton className="w-1/4 h-3 rounded" />
+        </div>
+      </div>
+    ));
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -56,7 +79,16 @@ const Browse = () => {
               </div>
             </div>
             
-            {filteredCampaigns.length > 0 ? (
+            {isLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {renderSkeletons()}
+              </div>
+            ) : error ? (
+              <div className="text-center py-16">
+                <h3 className="text-xl font-medium mb-2">Error loading campaigns</h3>
+                <p className="text-gray-500">Please try again later</p>
+              </div>
+            ) : filteredCampaigns && filteredCampaigns.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {filteredCampaigns.map((campaign) => (
                   <CampaignCard key={campaign.id} campaign={campaign} />

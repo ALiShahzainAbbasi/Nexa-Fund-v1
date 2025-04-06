@@ -1,3 +1,4 @@
+
 import { supabase } from '@/lib/supabase';
 import type { Campaign } from '@/data/campaigns';
 import type { Database } from '@/types/supabase';
