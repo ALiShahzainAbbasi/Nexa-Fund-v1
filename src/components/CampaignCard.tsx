@@ -1,76 +1,64 @@
 
-import { CalendarClock } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Campaign } from "@/data/campaigns";
 
-export interface CampaignProps {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  imageSrc: string;
-  raisedAmount: number;
-  goalAmount: number;
-  daysLeft: number;
-  backers: number;
+interface CampaignCardProps {
+  campaign: Campaign;
 }
 
-const CampaignCard = ({
-  title,
-  category,
-  description,
-  imageSrc,
-  raisedAmount,
-  goalAmount,
-  daysLeft,
-  backers
-}: CampaignProps) => {
-  const progressPercentage = Math.min(Math.round((raisedAmount / goalAmount) * 100), 100);
+const CampaignCard = ({ campaign }: CampaignCardProps) => {
+  // Calculate progress percentage
+  const progress = Math.min(Math.round((campaign.raised / campaign.goal) * 100), 100);
+
+  // Format currency
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
 
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-      <div className="relative h-48 overflow-hidden">
-        <img
-          src={imageSrc}
-          alt={title}
-          className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
-        />
-        <div className="absolute top-2 left-2">
-          <span className="bg-purple-600 text-white text-xs font-medium px-2.5 py-1 rounded-full">
-            {category}
-          </span>
-        </div>
-      </div>
-      <div className="p-5 space-y-4">
-        <h3 className="text-xl font-semibold text-gray-800 line-clamp-1">{title}</h3>
-        <p className="text-gray-600 text-sm line-clamp-2">{description}</p>
-        
-        <div className="pt-2">
-          <div className="flex justify-between items-center mb-1 text-sm">
-            <span className="font-medium">${raisedAmount.toLocaleString()}</span>
-            <span className="text-gray-500">${goalAmount.toLocaleString()} Goal</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
-              className="bg-green-500 h-2 rounded-full" 
-              style={{ width: `${progressPercentage}%` }}
-            ></div>
-          </div>
-          <div className="flex justify-between items-center mt-2 text-sm text-gray-500">
-            <span>{progressPercentage}% Funded</span>
-            <span>{backers} Backers</span>
+    <Card className="overflow-hidden transition-all hover:shadow-md">
+      <Link to={`/campaign/${campaign.id}`}>
+        <div className="aspect-video relative overflow-hidden">
+          <img 
+            src={campaign.image} 
+            alt={campaign.title} 
+            className="w-full h-full object-cover transition-transform hover:scale-105"
+          />
+          <div className="absolute top-2 right-2 bg-white py-1 px-2 rounded-full text-xs font-medium">
+            {campaign.category}
           </div>
         </div>
         
-        <div className="flex items-center text-sm text-gray-500 pt-1">
-          <CalendarClock size={16} className="mr-1" />
-          <span>{daysLeft} days left</span>
-        </div>
-        
-        <Button className="w-full">
-          View Campaign
-        </Button>
-      </div>
-    </div>
+        <CardContent className="p-4">
+          <h3 className="text-lg font-semibold line-clamp-2 mb-2">{campaign.title}</h3>
+          <p className="text-gray-600 text-sm mb-4 line-clamp-2">{campaign.description}</p>
+          
+          <div className="mb-2">
+            <div className="w-full bg-gray-200 rounded-full h-2 mb-1">
+              <div 
+                className="bg-green-500 rounded-full h-2" 
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="font-medium text-green-600">{formatCurrency(campaign.raised)}</span>
+              <span className="text-gray-500">{progress}% of {formatCurrency(campaign.goal)}</span>
+            </div>
+          </div>
+        </CardContent>
+      </Link>
+      
+      <CardFooter className="p-4 pt-0 flex justify-between text-sm text-gray-500">
+        <span>{campaign.backers} backers</span>
+        <span>{campaign.daysLeft} days left</span>
+      </CardFooter>
+    </Card>
   );
 };
 
