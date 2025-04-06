@@ -61,11 +61,11 @@ const Footer = () => {
                 </div>
                 <input
                   type="email"
-                  className="pl-10 pr-4 py-2 w-full bg-gray-800 border border-gray-700 rounded-l-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-200"
+                  className="pl-10 pr-4 py-2 w-full bg-gray-800 border border-gray-700 rounded-l-md focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-200"
                   placeholder="Your email"
                 />
               </div>
-              <Button className="rounded-l-none">
+              <Button className="rounded-l-none bg-green-500 hover:bg-green-600">
                 Subscribe
               </Button>
             </div>

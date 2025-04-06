@@ -1,8 +1,8 @@
 
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import FeaturedCampaigns from "@/components/FeaturedCampaigns";
-import TrendingCampaigns from "@/components/TrendingCampaigns";
+import ClientsSection from "@/components/ClientsSection";
+import CommunitySection from "@/components/CommunitySection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -11,8 +11,8 @@ const Index = () => {
       <Navbar />
       <main className="flex-grow">
         <HeroSection />
-        <FeaturedCampaigns />
-        <TrendingCampaigns />
+        <ClientsSection />
+        <CommunitySection />
       </main>
       <Footer />
     </div>
