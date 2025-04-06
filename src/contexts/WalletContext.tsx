@@ -7,7 +7,11 @@ import {
   handleChainChanged,
   initialWalletState,
   isMetaMaskInstalled,
-  WalletState
+  WalletState,
+  createCampaignOnChain,
+  contributeToChain,
+  fetchCampaignsFromChain,
+  generateIPFSHash
 } from "@/utils/walletConnector";
 
 interface WalletContextType {
@@ -15,6 +19,16 @@ interface WalletContextType {
   connect: () => Promise<void>;
   disconnect: () => void;
   isLoading: boolean;
+  createCampaign: (campaignData: {
+    title: string;
+    description: string;
+    goal: number;
+    duration: number;
+    ipfsHash: string;
+  }) => Promise<{ txHash: string }>;
+  contribute: (campaignId: string, amount: number) => Promise<{ txHash: string }>;
+  fetchChainCampaigns: () => Promise<any[]>;
+  generateIPFSHash: (fileName: string) => string;
 }
 
 // Create the context with a meaningful default value
@@ -22,7 +36,11 @@ const WalletContext = createContext<WalletContextType>({
   wallet: initialWalletState,
   connect: async () => {},
   disconnect: () => {},
-  isLoading: false
+  isLoading: false,
+  createCampaign: async () => ({ txHash: "" }),
+  contribute: async () => ({ txHash: "" }),
+  fetchChainCampaigns: async () => [],
+  generateIPFSHash: () => "",
 });
 
 export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -159,11 +177,81 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     });
   };
 
+  const handleCreateCampaign = async (campaignData: {
+    title: string;
+    description: string;
+    goal: number;
+    duration: number;
+    ipfsHash: string;
+  }) => {
+    if (!wallet.connected || !wallet.provider) {
+      toast({
+        title: "Wallet not connected",
+        description: "Please connect your wallet first",
+        variant: "destructive",
+      });
+      throw new Error("Wallet not connected");
+    }
+
+    try {
+      return await createCampaignOnChain(wallet.provider, campaignData);
+    } catch (error) {
+      console.error("Error in createCampaign:", error);
+      toast({
+        title: "Campaign creation failed",
+        description: error instanceof Error ? error.message : "Failed to create campaign on blockchain",
+        variant: "destructive",
+      });
+      throw error;
+    }
+  };
+
+  const handleContribute = async (campaignId: string, amount: number) => {
+    if (!wallet.connected || !wallet.provider) {
+      toast({
+        title: "Wallet not connected",
+        description: "Please connect your wallet first",
+        variant: "destructive",
+      });
+      throw new Error("Wallet not connected");
+    }
+
+    try {
+      return await contributeToChain(wallet.provider, campaignId, amount);
+    } catch (error) {
+      console.error("Error in contribute:", error);
+      toast({
+        title: "Contribution failed",
+        description: error instanceof Error ? error.message : "Failed to contribute on blockchain",
+        variant: "destructive",
+      });
+      throw error;
+    }
+  };
+
+  const handleFetchChainCampaigns = async () => {
+    if (!wallet.connected || !wallet.provider) {
+      console.log("Wallet not connected, cannot fetch blockchain campaigns");
+      return [];
+    }
+
+    try {
+      return await fetchCampaignsFromChain(wallet.provider);
+    } catch (error) {
+      console.error("Error fetching blockchain campaigns:", error);
+      return [];
+    }
+  };
+
   const contextValue = {
     wallet,
     connect: handleConnect,
     disconnect,
-    isLoading
+    isLoading,
+    createCampaign: handleCreateCampaign,
+    contribute: handleContribute,
+    fetchChainCampaigns: handleFetchChainCampaigns,
+    generateIPFSHash
   };
 
   return (
