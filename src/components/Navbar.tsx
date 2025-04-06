@@ -14,7 +14,7 @@ const Navbar = () => {
       <div className="container flex items-center justify-between">
         <div className="flex items-center">
           <Link to="/" className="flex items-center">
-            <h1 className="text-2xl font-bold text-green-600">CrowdFund</h1>
+            <h1 className="text-2xl font-bold text-green-600">Nexa Fund</h1>
           </Link>
         </div>
 
