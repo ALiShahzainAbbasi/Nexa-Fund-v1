@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -25,7 +24,6 @@ const StartCampaign = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   
-  // Form state
   const [formData, setFormData] = useState({
     title: "",
     category: "",
@@ -38,7 +36,6 @@ const StartCampaign = () => {
     ipfsHash: ""
   });
 
-  // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
     setFormData(prev => ({
@@ -47,7 +44,6 @@ const StartCampaign = () => {
     }));
   };
 
-  // Handle image upload
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
     
@@ -61,12 +57,10 @@ const StartCampaign = () => {
       return;
     }
 
-    // Preview the image
     const url = URL.createObjectURL(file);
     setSelectedFile(file);
     setPreviewUrl(url);
 
-    // Generate IPFS hash simulation
     const ipfsHash = generateIPFSHash(file.name);
     
     setFormData(prev => ({
@@ -74,7 +68,6 @@ const StartCampaign = () => {
       ipfsHash
     }));
 
-    // If Supabase is configured, upload the actual image
     if (isSupabaseConfigured()) {
       try {
         setUploadingImage(true);
@@ -112,7 +105,6 @@ const StartCampaign = () => {
         setUploadingImage(false);
       }
     } else {
-      // If no Supabase, just use the local URL
       setFormData(prev => ({
         ...prev,
         image: url
@@ -152,7 +144,6 @@ const StartCampaign = () => {
     try {
       setIsLoading(true);
       
-      // Calculate days between start and end date
       const startDate = new Date(formData.startDate);
       const endDate = new Date(formData.endDate);
       const durationInDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
@@ -161,7 +152,6 @@ const StartCampaign = () => {
         throw new Error("End date must be after start date");
       }
 
-      // First create on blockchain
       const { txHash } = await createCampaignOnChain({
         title: formData.title,
         description: formData.description,
@@ -170,7 +160,6 @@ const StartCampaign = () => {
         ipfsHash: formData.ipfsHash
       });
       
-      // Then save to Supabase
       if (isSupabaseConfigured()) {
         await createCampaign({
           title: formData.title,
@@ -182,7 +171,9 @@ const StartCampaign = () => {
           start_date: formData.startDate,
           end_date: formData.endDate,
           creator_id: wallet.address || "anonymous",
-          blockchain_id: txHash
+          metadata: { 
+            blockchain_id: txHash 
+          }
         });
       }
       

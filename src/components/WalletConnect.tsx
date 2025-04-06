@@ -77,6 +77,11 @@ const WalletConnect = () => {
     window.open(`${baseUrl}${wallet.address}`, "_blank");
   };
 
+  // Open MetaMask website if not installed
+  const openMetaMaskWebsite = () => {
+    window.open("https://metamask.io/download/", "_blank");
+  };
+
   if (isContextError) {
     return (
       <Button
@@ -120,7 +125,7 @@ const WalletConnect = () => {
       ) : (
         <Button 
           variant="outline" 
-          onClick={handleConnect}
+          onClick={!isMetaMaskDetected ? openMetaMaskWebsite : handleConnect}
           disabled={isLoading}
           className="bg-green-500 hover:bg-green-600 text-white flex items-center gap-2"
         >
@@ -137,7 +142,7 @@ const WalletConnect = () => {
           ) : (
             <>
               <Wallet className="h-4 w-4" />
-              Connect Wallet
+              Connect to MetaMask
             </>
           )}
         </Button>
