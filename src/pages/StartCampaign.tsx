@@ -171,7 +171,9 @@ const StartCampaign = () => {
           start_date: formData.startDate,
           end_date: formData.endDate,
           creator_id: wallet.address || "anonymous",
-          blockchain_id: txHash
+          metadata: { 
+            blockchain_id: txHash 
+          }
         });
       }
       
