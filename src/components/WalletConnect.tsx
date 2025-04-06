@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useWallet } from "@/contexts/WalletContext";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,6 @@ const WalletConnect = () => {
   const [isMetaMaskDetected, setIsMetaMaskDetected] = useState(false);
   const [isContextError, setIsContextError] = useState(false);
   
-  // Wrap wallet context access in try-catch to handle potential context errors
   let walletContextValue = {
     wallet: { connected: false, address: null, chainId: null },
     connect: async () => {},
@@ -27,7 +25,6 @@ const WalletConnect = () => {
   const { wallet, connect, disconnect, isLoading } = walletContextValue;
 
   useEffect(() => {
-    // Check if MetaMask is available
     const checkMetaMask = () => {
       const hasMetaMask = typeof window !== "undefined" && 
                          typeof window.ethereum !== "undefined" && 
@@ -38,7 +35,6 @@ const WalletConnect = () => {
     
     checkMetaMask();
     
-    // Add a small delay and check again (sometimes window.ethereum isn't immediately available)
     const timeoutId = setTimeout(checkMetaMask, 1000);
     return () => clearTimeout(timeoutId);
   }, []);
@@ -77,7 +73,6 @@ const WalletConnect = () => {
     window.open(`${baseUrl}${wallet.address}`, "_blank");
   };
 
-  // Open MetaMask website if not installed
   const openMetaMaskWebsite = () => {
     window.open("https://metamask.io/download/", "_blank");
   };
@@ -137,7 +132,7 @@ const WalletConnect = () => {
           ) : !isMetaMaskDetected ? (
             <>
               <Wallet className="h-4 w-4" />
-              Install MetaMask
+              Generate MetaMask
             </>
           ) : (
             <>
