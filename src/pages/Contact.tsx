@@ -53,8 +53,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="text-lg font-medium mb-1">Email Us</h3>
-                      <p className="text-gray-600">support@crowdfund.example</p>
-                      <p className="text-gray-600">info@crowdfund.example</p>
+                      <p className="text-gray-600">support@NexaFund_1@gmail.com</p>
+                      <p className="text-gray-600">info@NexaFund_1@gmail.com</p>
                     </div>
                   </div>
                   
@@ -64,7 +64,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="text-lg font-medium mb-1">Call Us</h3>
-                      <p className="text-gray-600">+1 (555) 123-4567</p>
+                      <p className="text-gray-600">00923182002</p>
                       <p className="text-gray-600">Monday-Friday, 9am-5pm EST</p>
                     </div>
                   </div>
@@ -75,8 +75,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="text-lg font-medium mb-1">Visit Us</h3>
-                      <p className="text-gray-600">123 Innovation Street</p>
-                      <p className="text-gray-600">San Francisco, CA 94103</p>
+                      <p className="text-gray-600">Fast University</p>
+                      <p className="text-gray-600">Islamabad, H-13</p>
                     </div>
                   </div>
                 </div>
