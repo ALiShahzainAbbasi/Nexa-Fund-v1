@@ -17,14 +17,16 @@ export const initialWalletState: WalletState = {
 
 // Check if MetaMask is installed
 export const isMetaMaskInstalled = (): boolean => {
-  return typeof window !== "undefined" && typeof window.ethereum !== "undefined";
+  return typeof window !== "undefined" && 
+         typeof window.ethereum !== "undefined" && 
+         window.ethereum.isMetaMask === true;
 };
 
 // Get Ethereum provider
 export const getProvider = (): ethers.providers.Web3Provider | null => {
   if (!isMetaMaskInstalled()) return null;
   try {
-    return new ethers.providers.Web3Provider(window.ethereum, "any");
+    return new ethers.providers.Web3Provider(window.ethereum);
   } catch (error) {
     console.error("Error creating provider:", error);
     return null;
@@ -35,28 +37,28 @@ export const getProvider = (): ethers.providers.Web3Provider | null => {
 export const connectWallet = async (): Promise<WalletState> => {
   try {
     if (!isMetaMaskInstalled()) {
+      console.error("MetaMask is not installed");
       throw new Error("MetaMask is not installed");
     }
 
     const provider = getProvider();
     if (!provider) {
+      console.error("Failed to get provider");
       throw new Error("Failed to get provider");
     }
 
     // Request account access
-    const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
     
-    // Get network information after successful connection
+    // Get network information
     const network = await provider.getNetwork();
-
-    if (!accounts || accounts.length === 0) {
-      throw new Error("No accounts found");
-    }
-
-    console.log("Connected successfully:", { account: accounts[0], network });
+    
+    console.log("Connected successfully:", { address, network });
 
     return {
-      address: accounts[0],
+      address,
       connected: true,
       chainId: network.chainId,
       provider,

@@ -25,11 +25,18 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   // Load previous wallet connection if exists
   useEffect(() => {
-    const storedAddress = localStorage.getItem("walletAddress");
-    if (storedAddress) {
-      // Try to reconnect silently if there was a previous connection
-      handleConnect(false);
-    }
+    const checkPreviousConnection = async () => {
+      if (isMetaMaskInstalled() && localStorage.getItem("walletAddress")) {
+        try {
+          handleConnect(false);
+        } catch (error) {
+          console.error("Failed to reconnect:", error);
+          localStorage.removeItem("walletAddress");
+        }
+      }
+    };
+    
+    checkPreviousConnection();
   }, []);
 
   // Set up event listeners

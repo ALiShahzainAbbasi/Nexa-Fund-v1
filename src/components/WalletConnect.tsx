@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useWallet } from "@/contexts/WalletContext";
 import { Button } from "@/components/ui/button";
 import { Loader2, LogOut, ExternalLink } from "lucide-react";
@@ -7,6 +7,14 @@ import { Loader2, LogOut, ExternalLink } from "lucide-react";
 const WalletConnect = () => {
   const { wallet, connect, disconnect, isLoading } = useWallet();
   const [showAddress, setShowAddress] = useState(false);
+  const [isMetaMaskDetected, setIsMetaMaskDetected] = useState(false);
+
+  useEffect(() => {
+    // Check if MetaMask is available
+    setIsMetaMaskDetected(typeof window !== "undefined" && 
+                         typeof window.ethereum !== "undefined" && 
+                         window.ethereum.isMetaMask === true);
+  }, []);
 
   const handleConnect = () => {
     connect();
@@ -29,7 +37,9 @@ const WalletConnect = () => {
     
     const baseUrl = wallet.chainId === 1 
       ? "https://etherscan.io/address/" 
-      : "https://goerli.etherscan.io/address/";
+      : wallet.chainId === 5
+        ? "https://goerli.etherscan.io/address/"
+        : "https://sepolia.etherscan.io/address/";
     
     window.open(`${baseUrl}${wallet.address}`, "_blank");
   };
@@ -65,7 +75,7 @@ const WalletConnect = () => {
         <Button 
           variant="outline" 
           onClick={handleConnect}
-          disabled={isLoading}
+          disabled={isLoading || !isMetaMaskDetected}
           className="bg-green-500 hover:bg-green-600 text-white"
         >
           {isLoading ? (
@@ -73,6 +83,8 @@ const WalletConnect = () => {
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Connecting...
             </>
+          ) : !isMetaMaskDetected ? (
+            "Install MetaMask"
           ) : (
             "Connect Wallet"
           )}
