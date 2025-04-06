@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import CampaignCard from './CampaignCard';
 import CategoryFilter from './CategoryFilter';
@@ -15,7 +14,9 @@ const featuredCampaignsData: Campaign[] = [
     raised: 25750,
     goal: 50000,
     daysLeft: 15,
-    backers: 358
+    backers: 358,
+    creator: '0xA1111E5B1C9D168f815C7856996B9DFA9327b773',
+    story: 'Our eco-friendly water purifier uses a revolutionary filtration system that eliminates contaminants while preserving essential minerals. With no chemicals and minimal maintenance required, it's perfect for homes and communities worldwide.'
   },
   {
     id: '2',
@@ -26,7 +27,9 @@ const featuredCampaignsData: Campaign[] = [
     raised: 42000,
     goal: 60000,
     daysLeft: 12,
-    backers: 542
+    backers: 542,
+    creator: '0xA1111E5B1C9D168f815C7856996B9DFA9327b773',
+    story: 'Our VR education platform breaks down geographical and economic barriers to quality education. Through immersive experiences, students can explore historical events, scientific concepts, and artistic masterpieces like never before.'
   },
   {
     id: '3',
@@ -37,7 +40,9 @@ const featuredCampaignsData: Campaign[] = [
     raised: 31200,
     goal: 40000,
     daysLeft: 8,
-    backers: 289
+    backers: 289,
+    creator: '0xA1111E5B1C9D168f815C7856996B9DFA9327b773',
+    story: 'Our community art center will provide exhibition spaces, workshops, and resources for artists of all levels. It will serve as a cultural hub that celebrates creativity and brings people together through shared artistic experiences.'
   },
   {
     id: '4',
@@ -48,7 +53,9 @@ const featuredCampaignsData: Campaign[] = [
     raised: 28900,
     goal: 35000,
     daysLeft: 21,
-    backers: 415
+    backers: 415,
+    creator: '0xA1111E5B1C9D168f815C7856996B9DFA9327b773',
+    story: 'Our smart energy monitor helps households reduce their carbon footprint and save money by providing detailed insights into energy usage patterns. With real-time data and actionable recommendations, users can make informed decisions about consumption.'
   },
   {
     id: '5',
@@ -59,7 +66,9 @@ const featuredCampaignsData: Campaign[] = [
     raised: 64000,
     goal: 80000,
     daysLeft: 10,
-    backers: 712
+    backers: 712,
+    creator: '0xA1111E5B1C9D168f815C7856996B9DFA9327b773',
+    story: 'This independent film explores powerful themes through a compelling narrative that challenges conventional storytelling. With a diverse cast and crew, we aim to create not just entertainment but art that provokes thought and conversation.'
   },
   {
     id: '6',
@@ -70,7 +79,9 @@ const featuredCampaignsData: Campaign[] = [
     raised: 18500,
     goal: 25000,
     daysLeft: 18,
-    backers: 203
+    backers: 203,
+    creator: '0xA1111E5B1C9D168f815C7856996B9DFA9327b773',
+    story: 'Our accessible playground will ensure that children of all abilities can play side by side, fostering inclusivity and understanding from an early age. Features include wheelchair-accessible equipment, sensory play areas, and spaces designed for children with various needs.'
   }
 ];
 

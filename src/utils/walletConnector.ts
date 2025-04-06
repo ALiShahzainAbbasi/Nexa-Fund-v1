@@ -17,13 +17,18 @@ export const initialWalletState: WalletState = {
 
 // Check if MetaMask is installed
 export const isMetaMaskInstalled = (): boolean => {
-  return typeof window !== "undefined" && window.ethereum !== undefined;
+  return typeof window !== "undefined" && typeof window.ethereum !== "undefined";
 };
 
 // Get Ethereum provider
 export const getProvider = (): ethers.providers.Web3Provider | null => {
   if (!isMetaMaskInstalled()) return null;
-  return new ethers.providers.Web3Provider(window.ethereum);
+  try {
+    return new ethers.providers.Web3Provider(window.ethereum, "any");
+  } catch (error) {
+    console.error("Error creating provider:", error);
+    return null;
+  }
 };
 
 // Connect to MetaMask
@@ -39,12 +44,16 @@ export const connectWallet = async (): Promise<WalletState> => {
     }
 
     // Request account access
-    const accounts = await provider.send("eth_requestAccounts", []);
+    const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+    
+    // Get network information after successful connection
     const network = await provider.getNetwork();
 
-    if (accounts.length === 0) {
+    if (!accounts || accounts.length === 0) {
       throw new Error("No accounts found");
     }
+
+    console.log("Connected successfully:", { account: accounts[0], network });
 
     return {
       address: accounts[0],

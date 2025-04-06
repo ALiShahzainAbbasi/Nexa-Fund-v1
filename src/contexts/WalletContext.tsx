@@ -66,12 +66,26 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       });
     };
 
-    window.ethereum?.on("accountsChanged", handleAccountsChangedCallback);
-    window.ethereum?.on("chainChanged", handleChainChangedCallback);
+    // Use the correct event handling for MetaMask
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", handleAccountsChangedCallback);
+      window.ethereum.on("chainChanged", handleChainChangedCallback);
+      
+      // Check if already connected when component mounts
+      window.ethereum.request({ method: 'eth_accounts' })
+        .then((accounts: string[]) => {
+          if (accounts && accounts.length > 0) {
+            handleConnect(false);
+          }
+        })
+        .catch(console.error);
+    }
 
     return () => {
-      window.ethereum?.removeListener("accountsChanged", handleAccountsChangedCallback);
-      window.ethereum?.removeListener("chainChanged", handleChainChangedCallback);
+      if (window.ethereum) {
+        window.ethereum.removeListener("accountsChanged", handleAccountsChangedCallback);
+        window.ethereum.removeListener("chainChanged", handleChainChangedCallback);
+      }
     };
   }, []);
 
@@ -114,7 +128,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       if (showToasts) {
         toast({
           title: "Connection error",
-          description: "An error occurred while connecting to MetaMask",
+          description: error instanceof Error ? error.message : "An error occurred while connecting to MetaMask",
           variant: "destructive",
         });
       }

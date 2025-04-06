@@ -1,4 +1,3 @@
-
 import CampaignCard from './CampaignCard';
 import { Campaign } from "@/data/campaigns";
 
@@ -13,7 +12,9 @@ const trendingCampaignsData: Campaign[] = [
     raised: 38200,
     goal: 45000,
     daysLeft: 7,
-    backers: 476
+    backers: 476,
+    creator: '0xA1111E5B1C9D168f815C7856996B9DFA9327b773',
+    story: 'Our sustainable fashion line transforms recycled and eco-friendly materials into stylish, high-quality clothing that's good for both people and the planet. With transparent manufacturing and fair labor practices, we're redefining ethical fashion.'
   },
   {
     id: '8',
@@ -24,7 +25,9 @@ const trendingCampaignsData: Campaign[] = [
     raised: 156000,
     goal: 200000,
     daysLeft: 23,
-    backers: 1892
+    backers: 1892,
+    creator: '0xA1111E5B1C9D168f815C7856996B9DFA9327b773',
+    story: 'Our AI recycling robot uses advanced computer vision to automatically sort and process recyclables, increasing efficiency and reducing contamination in the recycling stream. This technology has the potential to revolutionize waste management globally.'
   },
   {
     id: '9',
@@ -35,7 +38,9 @@ const trendingCampaignsData: Campaign[] = [
     raised: 12800,
     goal: 15000,
     daysLeft: 5,
-    backers: 234
+    backers: 234,
+    creator: '0xA1111E5B1C9D168f815C7856996B9DFA9327b773',
+    story: 'Our mobile library program brings books, digital resources, and educational workshops to rural communities that lack access to traditional libraries. By fostering literacy and a love of learning, we aim to empower these communities through knowledge and stories.'
   }
 ];
 
